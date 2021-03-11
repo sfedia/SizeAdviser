@@ -538,13 +538,13 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
                     val intent = Intent(applicationContext, ProfileActivity::class.java)
                     startActivity(intent)
                     finish()
-                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
+                    overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
                 }
                 R.id.nav_my_collection -> {
                     val intent = Intent(applicationContext, MyCollectionActivity::class.java)
                     startActivity(intent)
                     finish()
-                    overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
                 }
 
             }
