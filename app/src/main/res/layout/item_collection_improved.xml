@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                   xmlns:tools="http://schemas.android.com/tools"
+                                   xmlns:card_view="http://schemas.android.com/tools"
+                                   android:layout_width="@dimen/_310sdp"
+                                   android:layout_height="wrap_content"
+                                   card_view:cardElevation="0dp"
+                                   android:layout_gravity="center"
+                                   app:cardBackgroundColor="@color/grey_100"
+                                   app:cardElevation="0dp" android:layout_marginBottom="20dp">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:id="@+id/fittingIDHidden"
+                android:visibility="gone"
+                android:text="xxxx"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_width="@dimen/_1sdp"
+        />
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                    android:id="@+id/itemDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:text="20.01.2021" tools:textAllCaps="false"
+                    app:layout_column="0" app:layout_row="0" android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginBottom="5dp"/>
+            <TextView
+                    android:text="RU"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/itemStandard" android:gravity="end"
+                    android:layout_weight="1" android:paddingRight="@dimen/_10sdp"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                    android:id="@+id/thisBrand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:textSize="20sp"
+                    android:textStyle="bold" android:text="Nike" tools:textAllCaps="false"
+                    android:paddingLeft="@dimen/_10sdp" android:paddingBottom="@dimen/_5sdp"/>
+            <TextView
+                    android:text="10.5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/thisSize"
+                    android:textSize="18sp"
+                    android:gravity="end" android:layout_weight="1" android:textStyle="bold"/>
+            <TextView
+                    android:text="1 size down"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="wrap_content" android:id="@+id/thisFitString"
+                    android:textSize="18sp"
+                    android:textAllCaps="true"
+                    android:gravity="right|end" android:layout_weight="0" android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ImageView
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_90sdp"
+                    android:id="@+id/imageView"
+                    android:scaleType="fitCenter" android:layout_marginRight="@dimen/_10sdp"
+                    android:visibility="visible" android:layout_marginLeft="@dimen/_10sdp"/>
+            <ImageView
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_90sdp"
+                    android:id="@+id/imageView2"
+                    android:scaleType="fitCenter" android:layout_marginRight="@dimen/_10sdp"
+                    android:visibility="visible"/>
+            <ImageView
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_90sdp"
+                    android:id="@+id/imageView3"
+                    android:scaleType="fitCenter" android:visibility="visible"
+                    android:paddingRight="@dimen/_10sdp"/>
+        </LinearLayout>
+        <View
+                android:id="@+id/shadow"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/card_bottom"
+                android:layout_gravity="bottom" android:visibility="visible" android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_10sdp" android:layout_marginRight="@dimen/_10sdp"/>
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

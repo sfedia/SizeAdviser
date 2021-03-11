@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "862763273858",
+    "firebase_url": "https://size-adviser.firebaseio.com",
+    "project_id": "size-adviser",
+    "storage_bucket": "size-adviser.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862763273858:android:fdb011b2526b3df96dee9b",
+        "android_client_info": {
+          "package_name": "com.sizeadviser.sizeadviser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "862763273858-hk7or3bc21kip5lu5hc4g4aj7a3ocuk8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sizeadviser.sizeadviser",
+            "certificate_hash": "2f6d938f26cdcd81edb38674924dbfb3447a8111"
+          }
+        },
+        {
+          "client_id": "862763273858-d8f1ts3qcvc9c15mkm0cm4hu3urn7ghp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbXW_GtrmlV1zjnrtskdWeDQBRhx-iXQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "862763273858-d8f1ts3qcvc9c15mkm0cm4hu3urn7ghp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

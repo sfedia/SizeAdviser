@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                   xmlns:tools="http://schemas.android.com/tools"
+                                   android:layout_width="@dimen/rec_card_width"
+                                   android:layout_height="@dimen/rec_card_height"
+                                   android:layout_gravity="center"
+                                   app:cardBackgroundColor="@color/paletteBlue"
+                                   app:cardCornerRadius="0dp" android:background="@drawable/recom_borders"
+                                   app:cardElevation="0dp">
+
+    <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:focusable="true"
+            android:clickable="true" android:layout_marginLeft="0dp" android:layout_marginRight="0dp"
+            android:layout_marginBottom="4dp" android:layout_marginTop="4dp"
+            android:background="@drawable/recom_borders">
+
+        <TextView
+                android:id="@+id/sizeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:paddingTop="4dp"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                tools:text="44.2/3"/>
+
+        <TextView
+                android:id="@+id/sizeStandard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                tools:ignore="ContentDescription" android:text="EU" android:textAlignment="center"
+                android:textSize="14sp" android:textColor="@android:color/white"/>
+
+    </FrameLayout>
+
+
+</androidx.cardview.widget.CardView>

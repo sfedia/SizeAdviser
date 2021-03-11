@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout
+              android:id="@+id/main_layout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/grey_100"
+              android:orientation="vertical"
+              android:weightSum="4">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+        <TextView
+                android:text="@string/please_sign_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/welcomeHeader" android:textSize="30sp"
+                android:layout_marginBottom="32dp" android:layout_marginTop="200dp"/>
+
+        <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+        >
+
+
+            <FrameLayout
+                    android:id="@+id/FrameLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                <com.facebook.login.widget.LoginButton
+                        android:id="@+id/login_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                <Button
+                        android:id="@+id/fb"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onClick"
+                        android:text="@string/use_facebook"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" android:background="@android:color/white"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:drawablePadding="5dp"
+                        android:paddingTop="5dp" android:paddingBottom="5dp"
+                        android:drawableLeft="@drawable/fb_button_logo"/>
+            </FrameLayout>
+
+            <FrameLayout
+                    android:id="@+id/FrameLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                <com.google.android.gms.common.SignInButton
+                        android:id="@+id/google_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                >
+                </com.google.android.gms.common.SignInButton>
+
+                <Button
+                        android:id="@+id/gl"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:onClick="onClick"
+                        android:text="@string/use_google"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" android:visibility="visible"
+                        android:drawableLeft="@drawable/gl_button_logo"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:drawablePadding="5dp"
+                        android:paddingTop="5dp" android:paddingBottom="5dp" android:layout_marginTop="10dp"/>
+                />
+            </FrameLayout>
+
+            <TextView
+                    android:text="@string/or_page_break"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textView7" android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"/>
+
+            <TextView
+                    android:text="@string/email_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView8"/>
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/hint_use_email"
+                    android:ems="10"
+                    android:id="@+id/UserEmail"/>
+
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/next_button"
+                    android:id="@+id/use_email" android:background="@color/paletteBlue"
+                    android:textColor="@android:color/white" android:layout_marginTop="16dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
+</layout>

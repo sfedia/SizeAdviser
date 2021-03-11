@@ -1,0 +1,38 @@
+<resources>
+    <!-- Reply Preference -->
+
+    <!-- Gender settings -->
+    <array name="pref_gender_option_labels">
+        <item>@string/gender_male_label</item>
+        <item>@string/gender_female_label</item>
+    </array>
+
+    <array name="pref_gender_option_values">
+        <item>@string/string_null</item>
+        <item>@string/string_one</item>
+    </array>
+
+    <!-- Choose the system of size -->
+    <array name="pref_system_option_labels">
+        <item>@string/system_us</item>
+        <item>@string/system_uk</item>
+        <item>@string/system_ru</item>
+        <item>@string/system_eu</item>
+        <item>@string/system_cm</item>
+    </array>
+    <array name="pref_system_option_values">
+        <item>@string/system_us</item>
+        <item>@string/system_uk</item>
+        <item>@string/system_ru</item>
+        <item>@string/system_eu</item>
+        <item>@string/system_cm</item>
+    </array>
+
+    <!-- Fitting item actions -->
+    <array name="fitting_dialog_actions">
+        <item>@string/fitting_delete</item>
+    </array>
+    <array name="photo_dialog_actions">
+        <item>@string/photo_delete</item>
+    </array>
+</resources>

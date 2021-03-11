@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+            android:id="@+id/main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/grey_100"
+            android:orientation="vertical"
+            android:weightSum="3">
+
+        <ProgressBar
+                android:id="@+id/progressBar"
+                android:indeterminate="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                style="?android:attr/progressBarStyleHorizontal"/>
+
+        <LinearLayout
+                android:id="@+id/coll_sub_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:paddingLeft="@dimen/_15sdp"
+                    android:paddingRight="@dimen/_15sdp" android:background="@drawable/collection_title"
+                    android:paddingTop="@dimen/_5sdp" android:paddingBottom="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_10sdp" android:layout_marginRight="@dimen/_10sdp">
+
+                <TextView
+                        android:text="@string/collection_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/textView15" android:textAllCaps="true"
+                        android:textSize="16sp" android:textColor="@color/grey_500"/>
+                <TextView
+                        android:text="@string/collection_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/textView17" android:gravity="right|end"
+                        android:layout_gravity="center" android:textSize="16sp" android:textColor="@color/grey_500"/>
+                <TextView
+                        android:text="@string/collection_fit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/textView18"
+                        android:layout_gravity="right|end"
+                        android:textSize="16sp" android:textColor="@color/grey_500"/>
+            </FrameLayout>
+            <!--<ImageView
+                    android:id="@+id/expanded_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:contentDescription="@string/collection_title"
+                    android:layout_gravity="center"
+            />-->
+            <com.jsibbold.zoomage.ZoomageView
+                    android:id="@+id/expanded_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:zoomage_restrictBounds="false"
+                    app:zoomage_animateOnReset="true"
+                    app:zoomage_autoResetMode="UNDER"
+                    app:zoomage_autoCenter="true"
+                    app:zoomage_zoomable="true"
+                    app:zoomage_translatable="true"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    app:zoomage_minScale="0.6"
+                    app:zoomage_maxScale="8"
+            />
+            <TextView
+                    android:text="@string/empty_collection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/emptyCollection" android:gravity="center"
+                    android:layout_marginTop="@dimen/_38sdp"/>
+
+            <com.yarolegovich.discretescrollview.DiscreteScrollView
+                    android:id="@+id/collectionItems"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:dsv_orientation="vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="vertical" android:layout_gravity="bottom">
+            <include
+                    layout="@layout/item_navigation_hardcoded"
+                    android:id="@+id/navigation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

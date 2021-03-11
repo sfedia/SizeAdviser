@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_centerInParent="true"
+>
+
+    <LinearLayout
+            android:id="@+id/main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/grey_100"
+            android:orientation="vertical"
+            android:weightSum="3"
+    >
+
+        <ProgressBar
+                android:id="@+id/progressBar"
+                android:indeterminate="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                style="?android:attr/progressBarStyleHorizontal"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:id="@+id/sub1_layout"
+                android:layout_gravity="center"
+        >
+            <TextView
+                    android:text="@string/choose_brand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView4" android:gravity="center"
+                    android:textSize="16sp" android:layout_marginBottom="@dimen/_3sdp"
+                    android:textColor="@android:color/black"/>
+            <Spinner
+                    android:id="@+id/brand_options"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textAlignment="center"
+                    style="@style/SpinnerWithoutArrow" android:layout_marginRight="@dimen/froom_screen_lr"
+                    android:layout_marginLeft="@dimen/froom_screen_lr"/>
+
+
+            <ProgressBar
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/localProgressBar" android:visibility="gone"/>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/recommendedSizesLayout"
+                    android:layout_marginTop="@dimen/_12sdp"
+            >
+
+                <TextView
+                        android:text="@string/recommended_sizes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textView6" android:gravity="center"
+                        android:textSize="16sp" android:layout_marginBottom="@dimen/_4sdp"
+                        android:textColor="@android:color/black"/>
+                <com.yarolegovich.discretescrollview.DiscreteScrollView
+                        android:id="@+id/recommendedSizes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:dsv_orientation="horizontal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/brandStandardsLayout"
+                    android:background="@drawable/underline"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingRight="@dimen/_15sdp"
+            >
+
+                <TextView
+                        android:text="@string/trying_size"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textView11" android:gravity="center"
+                        android:background="@drawable/underline"
+                        android:textSize="16sp" android:paddingBottom="@dimen/_4sdp"
+                        android:textColor="@android:color/black"/>
+                <com.yarolegovich.discretescrollview.DiscreteScrollView
+                        android:id="@+id/brandStandards"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:dsv_orientation="horizontal"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/brandSizesLayout"
+                    android:background="@drawable/underline"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingRight="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_8sdp" android:paddingBottom="@dimen/_3sdp">
+                <com.yarolegovich.discretescrollview.DiscreteScrollView
+                        android:id="@+id/brandSizes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:dsv_orientation="horizontal"/>
+            </LinearLayout>
+
+
+            <androidx.gridlayout.widget.GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/fitButtonsGrid"
+                    app:columnCount="3"
+                    app:rowCount="4" android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/froom_screen_lr"
+                    android:layout_marginRight="@dimen/froom_screen_lr" android:layout_gravity="center">
+
+                <Button
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_50sdp" android:id="@+id/tooSmall"
+                        android:background="@drawable/fitting_r_button_other"
+                        android:text="@string/too_small"
+                        android:textAllCaps="false" android:textColor="@color/otherFitLinkColor"
+                        app:layout_row="0" app:layout_column="0"
+                        app:layout_gravity="center|center_horizontal|top" android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_15sdp"/>
+                <Button
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp" android:id="@+id/sizeDown"
+                        android:background="@drawable/fitting_r_button_other" android:text="@string/one_size_down"
+                        android:textAllCaps="false" android:textColor="@color/otherFitLinkColor"
+                        app:layout_row="0"
+                        app:layout_column="0" app:layout_gravity="center|center_horizontal"
+                        android:layout_marginLeft="@dimen/_10sdp" android:layout_marginTop="@dimen/_55sdp"
+                        android:layout_marginRight="@dimen/_15sdp"/>
+
+                <Button
+                        android:text="@string/ideal_fit"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_100sdp" android:id="@+id/idealFit"
+                        android:background="@drawable/fitting_r_button_ideal"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        app:layout_row="0" app:layout_column="1"
+                        android:layout_marginLeft="@dimen/_8sdp" android:layout_marginRight="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_5sdp"/>
+                <Button
+                        android:text="@string/got_it"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/gotIt"
+                        android:textColor="@color/idealFitColor" android:textSize="30sp" android:textStyle="bold"
+                        android:background="@android:color/transparent"
+                        app:layout_row="3" app:layout_column="1"
+                        app:layout_gravity="center|top"/>
+
+                <Button
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_50sdp" android:id="@+id/tooBig"
+                        android:background="@drawable/fitting_r_button_other" android:text="@string/too_big"
+                        android:textAllCaps="false" android:textColor="@color/otherFitLinkColor"
+                        app:layout_row="0" app:layout_column="2" app:layout_gravity="center|top"
+                        android:layout_marginRight="@dimen/_10sdp" android:layout_marginLeft="@dimen/_15sdp"
+                />
+                <Button
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp" android:id="@+id/sizeUp"
+                        android:background="@drawable/fitting_r_button_other" android:text="@string/one_size_up"
+                        android:textAllCaps="false" android:textColor="@color/otherFitLinkColor"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        app:layout_row="0"
+                        app:layout_column="2" app:layout_gravity="center" android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_55sdp" android:layout_marginLeft="@dimen/_15sdp"/>
+
+            </androidx.gridlayout.widget.GridLayout>
+
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="vertical" android:layout_gravity="bottom">
+            <include
+                    layout="@layout/item_navigation_hardcoded"
+                    android:id="@+id/navigation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

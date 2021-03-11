@@ -1,0 +1,21 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="image_corner_radius">50dp</dimen>
+
+    <dimen name="icon_top_margin">24dp</dimen>
+    <dimen name="icon_bottom_margin">24dp</dimen>
+    <dimen name="title_bottom_margin">16dp</dimen>
+
+    <dimen name="button_horizontal_margin">8dp</dimen>
+
+    <dimen name="profile_screen_lr">@dimen/_20sdp</dimen>
+    <dimen name="froom_screen_lr">@dimen/_20sdp</dimen>
+
+    <dimen name="rec_card_width">@dimen/_61sdp</dimen>
+    <dimen name="rec_card_height">@dimen/_50sdp</dimen>
+
+    <dimen name="standards_card_width">@dimen/_50sdp</dimen>
+    <dimen name="standards_card_height">@dimen/_40sdp</dimen>
+
+</resources>

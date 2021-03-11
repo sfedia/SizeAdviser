@@ -1,0 +1,135 @@
+<resources>
+    <string name="app_name">Size Adviser</string>
+    <string name="facebook_app_id">289162989049141</string>
+    <string name="fb_login_protocol_scheme">fb289162989049141</string>
+
+    <!-- Start Activity -->
+    <string name="size_adviser_1">Size</string>
+    <string name="size_adviser_2">adviser</string>
+    <string name="title_activity_start">Size Adviser</string>
+
+
+    <string name="use_google">Sign in with Google</string>
+    <string name="use_facebook">Sign in with Facebook</string>
+
+    <string name="label_multi_factor">Multi-Factor Authentication</string>
+
+    <string name="sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="verify_email">Verify</string>
+    <string name="signed_out">Signed Out</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_repeat_password">Repeat password</string>
+    <string name="desc_firebase_lockup">Firebase logo and name</string>
+    <string name="start_phone_auth">Start</string>
+    <string name="verify_phone_auth">Verify</string>
+    <string name="resend_phone_auth">Resend</string>
+    <string name="hint_phone_number">Phone Number</string>
+    <string name="hint_verification_code">Verification Code</string>
+
+    <string name="firebase_status_fmt">Firebase UID: %s</string>
+
+    <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
+
+    <string name="phone_title_text">Phone Number</string>
+
+    <string name="enroll_mfa">Enroll MFA</string>
+    <string name="unenroll_mfa">Unenroll MFA</string>
+    <string name="reload">I verified my account</string>
+
+    <string name="multi_factor_signed_out">You are not signed in. To use this sample, first navigate to the
+        Email/Password example to sign in and then return here to enroll in multi-factor auth.
+    </string>
+    <string name="letter_sent">We\'ve sent e-mail verification letter to you.
+        Please follow the link provided in the letter,
+        and then press the button below
+    </string>
+
+    <string name="please_sign_in">Please sign in.</string>
+    <string name="sign_in_and_go">Sign in and go.</string>
+    <string name="create_account_title">Join Size Adviser!</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="or_page_break">or</string>
+    <string name="hint_use_email">e.g. john@company.com</string>
+    <string name="email_header">Email</string>
+    <string name="next_button">Next</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="no_account">Don\'t have an account? Sign up</string>
+    <string name="already_have">Already have an account? Sign in</string>
+    <string name="invalid_creds">Invalid e-mail or password</string>
+
+    <string name="calibration_welcome_header">Welcome</string>
+    <string name="calibration_welcome_header_noname">Welcome!</string>
+    <string name="calibration_welcome_header_name">%s!</string>
+    <string name="calibration_msg1">To recommend sizes we need to calibrate your profile</string>
+    <string name="calibration_choose_gender">Choose your gender</string>
+    <string name="calibration_male">Male</string>
+    <string name="calibration_female">Female</string>
+    <string name="calibration_agreement">Please, try on at least 5 pairs of shoes of different popular brands</string>
+    <string name="calibration_ok">OK, I understand</string>
+
+    <string name="almost_there">You\'re almost there!</string>
+    <string name="enter_your_name">Please provide your first &amp; last name</string>
+    <string name="first_last_name">e.g. John Johnson</string>
+
+    <string name="fitting_room">Fitting room</string>
+    <string name="profile_tab">Profile</string>
+    <string name="my_collection">My collection</string>
+
+    <string name="profile_username_placeholder">…</string>
+    <string name="settings">Settings</string>
+
+    <!-- Preference Titles -->
+
+    <!-- Messages Preferences -->
+
+    <!-- Sync Preferences -->
+
+    <!-- Settings -->
+    <string name="change_your_username">Change your username</string>
+    <string name="gender_male_label">Male</string>
+    <string name="gender_female_label">Female</string>
+    <string name="string_null">0</string>
+    <string name="string_one">1</string>
+
+    <string name="system_us">US</string>
+    <string name="system_uk">UK</string>
+    <string name="system_ru">RU</string>
+    <string name="system_eu">EU</string>
+    <string name="system_cm">Cm</string>
+
+    <!-- Fitting room -->
+    <string name="upload_photo">Take a photo</string>
+    <string name="choose_brand">choose brand</string>
+    <string name="recommended_sizes">size recommendation</string>
+    <string name="trying_size">I am trying size</string>
+    <string name="ideal_fit">Ideal fit</string>
+    <string name="one_size_up">1 size&#10;UP</string>
+    <string name="one_size_down">1 size DOWN</string>
+    <string name="too_big">too big</string>
+    <string name="too_small">too small</string>
+    <string name="got_it">Got it</string>
+
+    <!-- My collection -->
+    <string name="collection_title">%s\'s collection</string>
+    <string name="empty_collection">Your collection is empty.</string>
+    <string name="collection_details">details</string>
+    <string name="collection_size">size</string>
+    <string name="collection_fit">fit</string>
+    <string name="fitting_actions">Actions</string>
+    <string name="fitting_delete">Remove fitting</string>
+    <string name="photo_actions">Actions with photo</string>
+    <string name="photo_delete">Remove this photo</string>
+
+    <!-- Profile -->
+    <string name="profile_search">search</string>
+    <string name="profile_total">Total</string>
+    <string name="profile_tested">Tested</string>
+    <string name="profile_brands">brands</string>
+    <string name="profile_sizes">size</string>
+    <string name="only_tested">Show only tested</string>
+    <string name="show_all">Show all</string>
+
+
+</resources>

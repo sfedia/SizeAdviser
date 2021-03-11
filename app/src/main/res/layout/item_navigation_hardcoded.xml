@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@+id/nav_button_holder"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+    >
+
+        <Button
+                android:text="@string/profile_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/nav_profile" android:layout_weight="1"
+                android:background="@color/paletteLightGray" android:layout_marginLeft="5dp"
+                android:layout_marginRight="2.5dp" android:fontFamily="sans-serif-light"/>
+        <Button
+                android:text="@string/fitting_room"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/nav_fitting_room" android:layout_weight="1"
+                android:background="@color/paletteLightGray" android:layout_marginLeft="2.5dp"
+                android:layout_marginRight="2.5dp" android:fontFamily="sans-serif-light"/>
+        <Button
+                android:text="@string/my_collection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/nav_my_collection" android:layout_weight="1"
+                android:background="@color/paletteLightGray" android:layout_marginLeft="2.5dp"
+                android:layout_marginRight="5dp" android:fontFamily="sans-serif-light"/>
+    </LinearLayout>
+</layout>

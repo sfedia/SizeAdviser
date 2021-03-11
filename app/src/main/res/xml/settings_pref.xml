@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+            android:defaultValue="default"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="@string/change_your_username"
+            android:title="User name" android:key="profile_user_name"/>
+    <ListPreference
+            android:defaultValue="Male"
+            android:entries="@array/pref_gender_option_labels"
+            android:entryValues="@array/pref_gender_option_values"
+            android:key="profile_gender"
+            android:summary="Set another gender"
+            android:title="Gender" />
+    <ListPreference
+            android:defaultValue="EU"
+            android:entries="@array/pref_system_option_labels"
+            android:entryValues="@array/pref_system_option_values"
+            android:key="profile_system_of_size"
+            android:summary="Sizes will be shown in this system by default"
+            android:title="Default system" />
+</PreferenceScreen>
