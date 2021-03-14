@@ -93,6 +93,7 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
         binding.tooBig.setOnClickListener(this)
         binding.sizeUp.setOnClickListener(this)
         binding.gotIt.setOnClickListener(this)
+        binding.newBrand.setOnClickListener(this)
 
         binding.navigation.navProfile.setOnClickListener(this)
         binding.navigation.navMyCollection.setOnClickListener(this)
