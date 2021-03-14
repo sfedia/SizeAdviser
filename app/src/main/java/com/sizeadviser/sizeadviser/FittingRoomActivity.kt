@@ -536,9 +536,9 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
                     }
                 }
                 R.id.new_brand -> {
-                    /*val intent = Intent(applicationContext, CustomBrandActivity::class.java)
+                    val intent = Intent(applicationContext, CustomBrandActivity::class.java)
                     startActivity(intent)
-                    finish()*/
+                    finish()
                 }
                 R.id.nav_profile -> {
                     val intent = Intent(applicationContext, ProfileActivity::class.java)
