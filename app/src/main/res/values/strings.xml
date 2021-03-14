@@ -111,6 +111,12 @@
     <string name="too_small">too small</string>
     <string name="got_it">Got it</string>
 
+    <!-- Fitting room: custom brand -->
+    <string name="custom_brand_name">enter brand name</string>
+    <string name="my_brand_size">type the size</string>
+    <string name="my_brand_standard">type the standard</string>
+    <string name="my_brand_standard_hint">UK / RU / EU, etc.</string>
+
     <!-- My collection -->
     <string name="collection_title">%s\'s collection</string>
     <string name="empty_collection">Your collection is empty.</string>

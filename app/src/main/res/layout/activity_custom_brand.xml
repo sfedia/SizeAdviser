@@ -33,11 +33,17 @@
                 android:layout_gravity="center"
         >
             <TextView
-                    android:text="@string/choose_brand"
+                    android:text="@string/custom_brand_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/textView4" android:gravity="center"
                     android:textSize="16sp" android:layout_marginBottom="@dimen/_3sdp"
                     android:textColor="@android:color/black"/>
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/brand_name"/>
             <Spinner
                     android:id="@+id/brand_options"
                     android:layout_width="match_parent"
@@ -59,16 +65,17 @@
             >
 
                 <TextView
-                        android:text="@string/recommended_sizes"
+                        android:text="@string/my_brand_size"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" android:id="@+id/textView6" android:gravity="center"
                         android:textSize="16sp" android:layout_marginBottom="@dimen/_4sdp"
                         android:textColor="@android:color/black"/>
-                <com.yarolegovich.discretescrollview.DiscreteScrollView
-                        android:id="@+id/recommendedSizes"
+                <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:dsv_orientation="horizontal"/>
+                        android:inputType="number"
+                        android:ems="10"
+                        android:id="@+id/my_brand_size"/>
 
             </LinearLayout>
 
@@ -83,17 +90,18 @@
             >
 
                 <TextView
-                        android:text="@string/trying_size"
+                        android:text="@string/my_brand_standard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" android:id="@+id/textView11" android:gravity="center"
                         android:background="@drawable/underline"
                         android:textSize="16sp" android:paddingBottom="@dimen/_4sdp"
                         android:textColor="@android:color/black"/>
-                <com.yarolegovich.discretescrollview.DiscreteScrollView
-                        android:id="@+id/brandStandards"
+                <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:dsv_orientation="horizontal"/>
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/my_brand_standard" android:hint="@string/my_brand_standard_hint"/>
             </LinearLayout>
 
             <LinearLayout
@@ -105,11 +113,6 @@
                     android:paddingLeft="@dimen/_15sdp"
                     android:paddingRight="@dimen/_15sdp"
                     android:layout_marginBottom="@dimen/_8sdp" android:paddingBottom="@dimen/_3sdp">
-                <com.yarolegovich.discretescrollview.DiscreteScrollView
-                        android:id="@+id/brandSizes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:dsv_orientation="horizontal"/>
             </LinearLayout>
 
 
@@ -117,7 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/fitButtonsGrid"
                     app:columnCount="3"
-                    app:rowCount="4" android:layout_marginTop="@dimen/_8sdp"
+                    app:rowCount="6" android:layout_marginTop="@dimen/_8sdp"
                     android:layout_marginLeft="@dimen/froom_screen_lr"
                     android:layout_marginRight="@dimen/froom_screen_lr" android:layout_gravity="center">
 
@@ -182,17 +185,17 @@
                         android:layout_marginTop="@dimen/_55sdp" android:layout_marginLeft="@dimen/_15sdp"/>
                 <Button
                         android:text="Add photo"
-                        app:layout_row="3" app:layout_column="0"
-                        android:layout_width="@dimen/_65sdp"
+                        app:layout_row="4" app:layout_column="1"
+                        android:layout_width="@dimen/_100sdp"
                         android:layout_height="wrap_content" android:id="@+id/button2"
                         app:layout_gravity="center|center_horizontal" android:textAllCaps="false"
                         android:background="@drawable/fitting_r_button_other" android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginBottom="@dimen/_5sdp"/>
                 <Button
-                        android:text="Add new brand"
-                        app:layout_row="3" app:layout_column="2"
-                        android:layout_width="@dimen/_65sdp"
-                        android:layout_height="wrap_content" android:id="@+id/new_brand"
+                        android:text="See other brands"
+                        app:layout_row="5" app:layout_column="1"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="wrap_content" android:id="@+id/button3"
                         app:layout_gravity="center|center_horizontal" android:textAllCaps="false"
                         android:background="@drawable/fitting_r_button_other" android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginBottom="@dimen/_5sdp"/>
