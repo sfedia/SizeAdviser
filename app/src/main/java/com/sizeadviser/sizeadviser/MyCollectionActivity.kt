@@ -129,6 +129,7 @@ class MyCollectionActivity : SettingsProvidingActivity(),
         slideToRight = Slide()
         slideToRight.slideEdge = Gravity.END
         slideToRight.excludeTarget(R.id.action_bar_container, true)
+        slideToRight.excludeTarget(android.R.id.statusBarBackground, true)
         slideToRight.excludeTarget(findViewById<View>(R.id.navigation), true)
         window.exitTransition = slideToRight
         window.allowEnterTransitionOverlap = true

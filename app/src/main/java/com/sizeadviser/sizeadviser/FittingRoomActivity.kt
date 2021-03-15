@@ -87,11 +87,13 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
         slideToLeft = Slide()
         slideToLeft.slideEdge = Gravity.START
         slideToLeft.excludeTarget(R.id.action_bar_container, true)
+        slideToLeft.excludeTarget(android.R.id.statusBarBackground, true)
         slideToLeft.excludeTarget(findViewById<View>(R.id.navigation), true)
         slideToRight = Slide()
         slideToRight.slideEdge = Gravity.END
         slideToRight.excludeTarget(R.id.action_bar_container, true)
-        slideToRight.excludeTarget(findViewById<View>(R.id.navigation), true)
+        slideToRight.excludeTarget(android.R.id.statusBarBackground, true)
+        slideToRight.excludeTarget(R.id.fr_local_tabs, true)
 
         window.allowEnterTransitionOverlap = true
 

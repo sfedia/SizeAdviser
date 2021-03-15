@@ -55,6 +55,7 @@ class ProfileActivity : SettingsProvidingActivity(),
         slideToLeft = Slide()
         slideToLeft.slideEdge = Gravity.START
         slideToLeft.excludeTarget(R.id.action_bar_container, true)
+        slideToLeft.excludeTarget(android.R.id.statusBarBackground, true)
         slideToLeft.excludeTarget(findViewById<View>(R.id.navigation), true)
         window.exitTransition = slideToLeft
         window.allowEnterTransitionOverlap = true
