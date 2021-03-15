@@ -2,6 +2,7 @@ package com.sizeadviser.sizeadviser
 
 import android.Manifest
 import android.app.Activity
+import android.app.ActivityOptions
 import android.app.AlertDialog
 import android.content.ClipData.Item
 import android.content.DialogInterface
@@ -10,15 +11,19 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.provider.Settings
+import android.transition.Slide
 import android.util.Log
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -42,6 +47,9 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
     DiscreteScrollView.OnItemChangedListener<FittingRoomViewHolder>, View.OnClickListener {
 
     private lateinit var binding: ActivityFittingRoomBinding
+    private lateinit var slideToLeft: Slide
+    private lateinit var slideToRight: Slide
+    
     var firstLoad: Boolean = true
     var api: SizeAdviserApi = SizeAdviserApi()
     var fittingData: BoundFittingData? = null
@@ -69,11 +77,23 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
     private lateinit var sizesView: DiscreteScrollView
     private lateinit var auth: FirebaseAuth
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFittingRoomBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+
+        slideToLeft = Slide()
+        slideToLeft.slideEdge = Gravity.START
+        slideToLeft.excludeTarget(R.id.action_bar_container, true)
+        slideToLeft.excludeTarget(findViewById<View>(R.id.navigation), true)
+        slideToRight = Slide()
+        slideToRight.slideEdge = Gravity.END
+        slideToRight.excludeTarget(R.id.action_bar_container, true)
+        slideToRight.excludeTarget(findViewById<View>(R.id.navigation), true)
+
+        window.allowEnterTransitionOverlap = true
 
         brandOptions = binding.brandOptions
         brandOptions.onItemSelectedListener = this
@@ -94,18 +114,13 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
         binding.sizeUp.setOnClickListener(this)
         binding.gotIt.setOnClickListener(this)
         binding.newBrand.setOnClickListener(this)
+        binding.addPhotoButton.setOnClickListener(this)
 
         binding.navigation.navProfile.setOnClickListener(this)
         binding.navigation.navMyCollection.setOnClickListener(this)
 
         setupSharedPreferences()
 
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.fitting_room_menu, menu)
-        return true
     }
 
     var mCurrentPhotoPath: String? = null
@@ -125,46 +140,41 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
         return image
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_upload_photo) {
-            if (askForPermissions()) {
-                Log.d("PERMISSION", "HURRAY!")
-                if (getCurrentFittingID() !in submittedFID) {
-                    Toast.makeText(
-                        this,
-                        "Please save your fit rate first.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                else {
-                    FittingSessionHolder.selectedBrandValue = fittingData?.thisBrand
-                    /*val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    startActivityForResult(cameraIntent, REQUEST_CODE)*/
+    private fun addPhoto() {
+        if (askForPermissions()) {
+            Log.d("PERMISSION", "HURRAY!")
+            if (getCurrentFittingID() !in submittedFID) {
+                Toast.makeText(
+                    this,
+                    "Please save your fit rate first.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else {
+                FittingSessionHolder.selectedBrandValue = fittingData?.thisBrand
+                /*val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                startActivityForResult(cameraIntent, REQUEST_CODE)*/
 
-                    val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    // Ensure that there's a camera activity to handle the intent
-                    if (takePictureIntent.resolveActivity(packageManager) != null) {
-                        // Create the File where the photo should go
-                        var photoFile: File? = null
-                        try {
-                            photoFile = createImageFile();
-                        } catch (e: IOException) {}
+                val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                // Ensure that there's a camera activity to handle the intent
+                if (takePictureIntent.resolveActivity(packageManager) != null) {
+                    // Create the File where the photo should go
+                    var photoFile: File? = null
+                    try {
+                        photoFile = createImageFile();
+                    } catch (e: IOException) {}
 
 
-                        if (photoFile != null) {
-                            var photoURI: Uri = FileProvider.getUriForFile(this,
+                    if (photoFile != null) {
+                        var photoURI: Uri = FileProvider.getUriForFile(this,
                             "com.sizeadviser.sizeadviser.fileprovider",
                             photoFile)
-                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                            startActivityForResult(takePictureIntent, REQUEST_CODE);
-                        }
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                        startActivityForResult(takePictureIntent, REQUEST_CODE);
                     }
                 }
             }
-            return true
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onStart() {
@@ -540,17 +550,20 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
                     startActivity(intent)
                     finish()
                 }
+                R.id.add_photo_button -> {
+                    addPhoto()
+                }
                 R.id.nav_profile -> {
+                    window.exitTransition = slideToRight
                     val intent = Intent(applicationContext, ProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+                    overridePendingTransition(0, 0)
                 }
                 R.id.nav_my_collection -> {
+                    window.exitTransition = slideToLeft
                     val intent = Intent(applicationContext, MyCollectionActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+                    overridePendingTransition(0, 0)
                 }
 
             }

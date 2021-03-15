@@ -6,8 +6,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Rect
 import android.graphics.Typeface
-import android.graphics.drawable.ColorDrawable
-import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -15,12 +13,8 @@ import android.text.TextWatcher
 import android.transition.Slide
 import android.util.Log
 import android.view.Gravity
-import android.view.MenuItem
 import android.view.View
-import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import android.view.animation.Animation
-import android.view.animation.DecelerateInterpolator
-import android.view.animation.LinearInterpolator
+import androidx.annotation.RequiresApi
 import com.google.android.material.shape.CornerFamily
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -42,6 +36,7 @@ class ProfileActivity : SettingsProvidingActivity(),
     private lateinit var auth: FirebaseAuth
     private lateinit var api: SizeAdviserApi
     private lateinit var standardsView: DiscreteScrollView
+    private lateinit var slideToLeft: Slide
     //var prefixSetter: EditText = binding.editTextTextBrandName as EditText
     var currentPrefix: String = ""
     var ctStandard: String? = null
@@ -50,11 +45,19 @@ class ProfileActivity : SettingsProvidingActivity(),
     var keyboardSize = 0
     var cachedKeyboardSize = 0
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        slideToLeft = Slide()
+        slideToLeft.slideEdge = Gravity.START
+        slideToLeft.excludeTarget(R.id.action_bar_container, true)
+        slideToLeft.excludeTarget(findViewById<View>(R.id.navigation), true)
+        window.exitTransition = slideToLeft
+        window.allowEnterTransitionOverlap = true
 
         auth = FirebaseAuth.getInstance()
 
@@ -145,7 +148,8 @@ class ProfileActivity : SettingsProvidingActivity(),
         }
 
         val pla = ProfileListAdapter(
-            this, R.layout.item_profile_list, mutableListOf(), getColor(R.color.palettePink))
+            this, R.layout.item_profile_list, mutableListOf(), getColor(R.color.palettePink)
+        )
 
         binding.listView.adapter = pla
         for (i in 1..50) {
@@ -249,7 +253,7 @@ class ProfileActivity : SettingsProvidingActivity(),
                             if (lastLetter == null || lastLetter != it.brand.toLowerCase()[0].toString()) {
                                 lastLetter = it.brand.toLowerCase().get(0).toString()
                                 finalRows.add(
-                                        ProfileRowWrapper("capital", capitalLetter = lastLetter!!.toUpperCase())
+                                    ProfileRowWrapper("capital", capitalLetter = lastLetter!!.toUpperCase())
                                 )
                             }
                             finalRows.add(
@@ -268,7 +272,7 @@ class ProfileActivity : SettingsProvidingActivity(),
                     if (lastLetter == null || lastLetter != it.brand.toLowerCase()[0].toString()) {
                         lastLetter = it.brand.toLowerCase()[0].toString()
                         finalRows.add(
-                                ProfileRowWrapper("capital", capitalLetter = lastLetter!!.toUpperCase())
+                            ProfileRowWrapper("capital", capitalLetter = lastLetter!!.toUpperCase())
                         )
                     }
                     finalRows.add(
@@ -283,7 +287,8 @@ class ProfileActivity : SettingsProvidingActivity(),
 
         println("finalRows: $finalRows")
         binding.listView.adapter = ProfileListAdapter(
-            this, R.layout.item_profile_list, finalRows, getColor(R.color.palettePink))
+            this, R.layout.item_profile_list, finalRows, getColor(R.color.palettePink)
+        )
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
@@ -345,15 +350,13 @@ class ProfileActivity : SettingsProvidingActivity(),
                 }
                 R.id.nav_fitting_room -> {
                     val intent = Intent(applicationContext, FittingRoomActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+                    overridePendingTransition(0, 0)
                 }
                 R.id.nav_my_collection -> {
                     val intent = Intent(applicationContext, MyCollectionActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+                    overridePendingTransition(0, 0)
                 }
             }
         }

@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.ActivityOptions
 import android.app.Dialog
 import android.content.ClipData.Item
 import android.content.DialogInterface
@@ -15,7 +16,9 @@ import android.graphics.RectF
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.transition.Slide
 import android.util.Log
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -109,6 +112,7 @@ class MyCollectionActivity : SettingsProvidingActivity(),
         View.OnClickListener {
 
     private lateinit var binding: ActivityMyCollectionBinding
+    private lateinit var slideToRight: Slide
     private lateinit var auth: FirebaseAuth
     lateinit var collectionView: DiscreteScrollView
     private lateinit var ext: CollectionExternal
@@ -121,6 +125,13 @@ class MyCollectionActivity : SettingsProvidingActivity(),
         binding = ActivityMyCollectionBinding.inflate(layoutInflater)
         var api: SizeAdviserApi = SizeAdviserApi()
         setContentView(binding.root)
+
+        slideToRight = Slide()
+        slideToRight.slideEdge = Gravity.END
+        slideToRight.excludeTarget(R.id.action_bar_container, true)
+        slideToRight.excludeTarget(findViewById<View>(R.id.navigation), true)
+        window.exitTransition = slideToRight
+        window.allowEnterTransitionOverlap = true
 
         shortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
 
@@ -336,15 +347,13 @@ class MyCollectionActivity : SettingsProvidingActivity(),
             when (v.id) {
                 R.id.nav_profile -> {
                     val intent = Intent(applicationContext, ProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+                    overridePendingTransition(0, 0)
                 }
                 R.id.nav_fitting_room -> {
                     val intent = Intent(applicationContext, FittingRoomActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+                    overridePendingTransition(0,0)
                 }
             }
         }
