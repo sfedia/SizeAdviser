@@ -242,7 +242,7 @@ class SizeAdviserApi {
                     size: String, standard: String, fitValue: Int, hook: () -> Unit) {
 
         val date = Calendar.getInstance().time
-        val formatter = SimpleDateFormat("dd.MM.yyyy")
+        val formatter = SimpleDateFormat("HH.mm.ss.dd.MM.yyyy")
         Fuel.get(mobileBasicUrl + "try_with_size", listOf(
             "user_id" to user.uid,
             "fitting_id" to fittingID,
