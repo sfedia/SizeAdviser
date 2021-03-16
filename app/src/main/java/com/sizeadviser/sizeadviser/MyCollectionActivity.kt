@@ -45,6 +45,7 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.yarolegovich.discretescrollview.DiscreteScrollView
 import com.bumptech.glide.request.target.Target
+import kotlinx.android.synthetic.main.activity_my_collection.*
 
 
 data class CollectionExternal(
@@ -118,6 +119,7 @@ class MyCollectionActivity : SettingsProvidingActivity(),
     private lateinit var ext: CollectionExternal
     private var currentAnimator: Animator? = null
     private var shortAnimationDuration: Int = 0
+    private var zoomedState: Boolean = false
     var api: SizeAdviserApi = SizeAdviserApi()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -226,6 +228,7 @@ class MyCollectionActivity : SettingsProvidingActivity(),
     }
 
     fun zoomImageFromThumb(thumbView: View) {
+        zoomedState = true
         currentAnimator?.cancel()
 
         val expandedImageView: ImageView = findViewById(R.id.expanded_image)
@@ -292,6 +295,7 @@ class MyCollectionActivity : SettingsProvidingActivity(),
         }
 
         expandedImageView.setOnClickListener {
+            zoomedState = false
             currentAnimator?.cancel()
 
             currentAnimator = AnimatorSet().apply {
@@ -357,6 +361,15 @@ class MyCollectionActivity : SettingsProvidingActivity(),
                     overridePendingTransition(0,0)
                 }
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        if (zoomedState) {
+            findViewById<View>(R.id.expanded_image).performClick()
+        }
+        else {
+            super.onBackPressed()
         }
     }
 }
