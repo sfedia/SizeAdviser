@@ -77,8 +77,10 @@ class CustomBrandActivity() : SettingsProvidingActivity(),
         binding.sizeUp.setOnClickListener(this)
         binding.gotIt.setOnClickListener(this)
         binding.buttonAddPhoto.setOnClickListener(this)
+        binding.otherBrand.setOnClickListener(this)
 
         binding.navigation.navProfile.setOnClickListener(this)
+        binding.navigation.navFittingRoom.setOnClickListener(this)
         binding.navigation.navMyCollection.setOnClickListener(this)
 
         binding.progressBar.visibility = View.INVISIBLE
