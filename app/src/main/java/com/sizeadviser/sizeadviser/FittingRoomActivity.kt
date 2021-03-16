@@ -144,7 +144,6 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
 
     private fun addPhoto() {
         if (askForPermissions()) {
-            Log.d("PERMISSION", "HURRAY!")
             if (getCurrentFittingID() !in submittedFID) {
                 Toast.makeText(
                     this,
@@ -154,13 +153,10 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
             }
             else {
                 FittingSessionHolder.selectedBrandValue = fittingData?.thisBrand
-                /*val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                startActivityForResult(cameraIntent, REQUEST_CODE)*/
 
                 val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                // Ensure that there's a camera activity to handle the intent
+                
                 if (takePictureIntent.resolveActivity(packageManager) != null) {
-                    // Create the File where the photo should go
                     var photoFile: File? = null
                     try {
                         photoFile = createImageFile();
@@ -176,6 +172,35 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
                     }
                 }
             }
+        }
+    }
+        
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
+            
+            val file = File(mCurrentPhotoPath)
+            val photoLocalID = Random.nextInt(
+                10.toDouble().pow(6).toInt(),
+                10.toDouble().pow(8).toInt()
+            ).toString()
+            
+            binding.progressBar.visibility = View.VISIBLE
+
+            getCurrentFittingID().let {
+                api.uploadPhoto(
+                    it,
+                    photoLocalID,
+                    file
+                ) {
+                    Toast.makeText(
+                        baseContext, "Image uploaded",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    binding.progressBar.visibility = View.INVISIBLE
+                }
+            }
+            
         }
     }
 
@@ -218,9 +243,9 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
         when (requestCode) {
             REQUEST_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission is granted, you can perform your operation here
+                    // no action added
                 } else {
-                    Log.d("PERMISSIONS", "not granted!!!")
+                    Log.d("PHOTO_PERMISSIONS", "not granted")
                 }
                 return
             }
@@ -233,7 +258,6 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
             .setMessage("Permission is denied, Please allow permissions from App Settings.")
             .setPositiveButton("App Settings",
                 DialogInterface.OnClickListener { dialogInterface, i ->
-                    // send to app settings if permission is denied permanently
                     val intent = Intent()
                     intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
                     val uri = Uri.fromParts("package", packageName, null)
@@ -275,7 +299,6 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
     }
 
     private fun uiLoadBrand(localPB: Boolean = false, globalPB: Boolean = true) {
-        // Turn on loading indicators
         if (globalPB) {
             binding.progressBar.visibility = View.VISIBLE
             binding.sub1Layout.visibility = View.INVISIBLE
@@ -288,7 +311,6 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
             binding.fitButtonsGrid.visibility = View.GONE
         }
 
-        // Make API request
         var currentBrand: String? = getSavedBrandValue()
         if (currentBrand == null) {
             currentBrand = "Adidas"
@@ -302,10 +324,8 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
                 loadBrandOptions(boundFittingData.brandOptions?.listBrands!!)
             }
 
-            // Update the global variable
             fittingData = boundFittingData
 
-            // Load recommendations and standards (fixit)
             val defaultSystem = sharedPreferences.getString(
                 "profile_system_of_size", "US"
             ).toString()
@@ -362,7 +382,6 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
         val adapter = ArrayAdapter(this, R.layout.spinner_item, brands)
         adapter.also { adapter ->
             adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
-            // adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             brandOptions.adapter = adapter
         }
     }
@@ -431,7 +450,6 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
 
     override fun onScrollStart(currentItemHolder: FittingRoomViewHolder, adapterPosition: Int) {
         currentItemHolder.defaultColor()
-        Log.d("SCROLLING_STARTED", "yes")
     }
 
     override fun onScrollEnd(currentItemHolder: FittingRoomViewHolder, adapterPosition: Int) {
@@ -458,16 +476,10 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
                 sizesView.scrollToPosition(sizesFocusIndex!!)
             }
         }
-        /*ftData.recommended?.recommendations?.forEach {
-            if (it.standard == standard) {
-                sizesView.scrollToPosition(ftData.)
-            }
-        }*/
     }
 
     override fun onCurrentItemChanged(viewHolder: FittingRoomViewHolder?, adapterPosition: Int) {
         viewHolder?.selectedColor()
-        Log.d("PANEL_SCROLLED", viewHolder?.getType().toString())
         when (viewHolder?.getType()) {
 
             viewHolder?.STANDARDS -> {
@@ -496,6 +508,33 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
         binding.idealFit.setBackgroundResource(resourceIdeal)
 
     }
+    
+    private fun gotItRun() {
+        if (fitValue == -1) {
+            Toast.makeText(
+                baseContext, "But how it fits you?",
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+        if (getCurrentFittingID() in submittedFID) {
+            resetFittingSession()
+        } else {
+            submittedFID.add(getCurrentFittingID())
+        }
+        binding.progressBar.visibility = View.VISIBLE
+        api.tryWithSize(
+            getCurrentFittingID(), getSavedBrandValue()!!, selectedSize!!,
+            selectedStandard!!, fitValue
+        ) {
+            Toast.makeText(
+                baseContext, "Your results saved",
+                Toast.LENGTH_LONG
+            ).show()
+            binding.progressBar.visibility = View.INVISIBLE
+            fitValue = -1
+        }
+    }
 
     override fun onClick(v: View?) {
         if (v != null) {
@@ -522,30 +561,7 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
                     fitValue = 5
                 }
                 R.id.gotIt -> {
-                    if (fitValue == -1) {
-                        Toast.makeText(
-                            baseContext, "But how it fits you?",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        return
-                    }
-                    if (getCurrentFittingID() in submittedFID) {
-                        resetFittingSession()
-                    } else {
-                        submittedFID.add(getCurrentFittingID())
-                    }
-                    binding.progressBar.visibility = View.VISIBLE
-                    api.tryWithSize(
-                        getCurrentFittingID(), getSavedBrandValue()!!, selectedSize!!,
-                        selectedStandard!!, fitValue
-                    ) {
-                        Toast.makeText(
-                            baseContext, "Your results saved",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        binding.progressBar.visibility = View.INVISIBLE
-                        fitValue = -1
-                    }
+                    gotItRun()
                 }
                 R.id.new_brand -> {
                     val intent = Intent(applicationContext, CustomBrandActivity::class.java)
@@ -571,41 +587,12 @@ class FittingRoomActivity() : SettingsProvidingActivity(),
             }
         }
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        println("$resultCode ; $requestCode ; $data ; $imageToUploadUri")
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {// && data != null) {
-
-            val file = File(mCurrentPhotoPath)
-
-            //val uri = FileProvider.getUriForFile(this, this.applicationContext.packageName + ".provider", file)
-
-            val photoLocalID = Random.nextInt(
-                10.toDouble().pow(6).toInt(),
-                10.toDouble().pow(8).toInt()
-            ).toString()
-
-            getCurrentFittingID().let {
-                api.uploadPhoto(
-                    it,
-                    photoLocalID,
-                    file
-                ) {
-                    Toast.makeText(
-                        baseContext, "Image uploaded",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
-    }
 }
 
 
 object FittingSessionHolder {
     init {
-        println("Singleton class invoked.")
+        println("FittingSessionHolder initialized")
     }
     var fittingID: String? = null
     var selectedBrandValue: String? = null
