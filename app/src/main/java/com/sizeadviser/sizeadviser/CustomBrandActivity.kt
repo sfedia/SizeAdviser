@@ -108,7 +108,6 @@ class CustomBrandActivity() : SettingsProvidingActivity(),
 
     private fun addPhoto() {
         if (askForPermissions()) {
-            Log.d("PERMISSION", "HURRAY!")
             if (getCurrentFittingID() !in submittedFID) {
                 Toast.makeText(
                     this,
@@ -118,13 +117,10 @@ class CustomBrandActivity() : SettingsProvidingActivity(),
             }
             else {
                 CustomFittingSessionHolder.myBrandValue = getSavedBrandValue()
-                /*val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                startActivityForResult(cameraIntent, REQUEST_CODE)*/
 
                 val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                // Ensure that there's a camera activity to handle the intent
+                
                 if (takePictureIntent.resolveActivity(packageManager) != null) {
-                    // Create the File where the photo should go
                     var photoFile: File? = null
                     try {
                         photoFile = createImageFile();
@@ -138,6 +134,35 @@ class CustomBrandActivity() : SettingsProvidingActivity(),
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                         startActivityForResult(takePictureIntent, REQUEST_CODE);
                     }
+                }
+            }
+        }
+    }
+        
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
+
+            val file = File(mCurrentPhotoPath)
+
+            val photoLocalID = Random.nextInt(
+                10.toDouble().pow(6).toInt(),
+                10.toDouble().pow(8).toInt()
+            ).toString()
+            
+            binding.progressBar.visibility = View.VISIBLE
+
+            getCurrentFittingID().let {
+                api.uploadPhoto(
+                    it,
+                    photoLocalID,
+                    file
+                ) {
+                    Toast.makeText(
+                        baseContext, "Image uploaded",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    binding.progressBar.visibility = View.INVISIBLE
                 }
             }
         }
@@ -179,9 +204,9 @@ class CustomBrandActivity() : SettingsProvidingActivity(),
         when (requestCode) {
             REQUEST_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission is granted, you can perform your operation here
+                    // no action added yet
                 } else {
-                    Log.d("PERMISSIONS", "not granted!!!")
+                    Log.d("PHOTO_PERMISSIONS", "not granted")
                 }
                 return
             }
@@ -194,7 +219,6 @@ class CustomBrandActivity() : SettingsProvidingActivity(),
             .setMessage("Permission is denied, Please allow permissions from App Settings.")
             .setPositiveButton("App Settings",
                 DialogInterface.OnClickListener { dialogInterface, i ->
-                    // send to app settings if permission is denied permanently
                     val intent = Intent()
                     intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
                     val uri = Uri.fromParts("package", packageName, null)
@@ -242,6 +266,36 @@ class CustomBrandActivity() : SettingsProvidingActivity(),
         binding.idealFit.setBackgroundResource(resourceIdeal)
 
     }
+    
+    private fun gotItRun() {
+        if (fitValue == -1) {
+            Toast.makeText(
+                baseContext, "But how it fits you?",
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+        if (getCurrentFittingID() in submittedFID) {
+            resetFittingSession()
+        } else {
+            submittedFID.add(getCurrentFittingID())
+        }
+        binding.progressBar.visibility = View.VISIBLE
+        api.tryWithSize(
+            getCurrentFittingID(),
+            getSavedBrandValue()!!,
+            getSavedSizeValue()!!,
+            getSavedStandardValue()!!,
+            fitValue
+        ) {
+            Toast.makeText(
+                baseContext, "Your results saved",
+                Toast.LENGTH_LONG
+            ).show()
+            binding.progressBar.visibility = View.INVISIBLE
+            fitValue = -1
+        }
+    }
 
     override fun onClick(v: View?) {
         if (v != null) {
@@ -268,33 +322,7 @@ class CustomBrandActivity() : SettingsProvidingActivity(),
                     fitValue = 5
                 }
                 R.id.gotIt -> {
-                    if (fitValue == -1) {
-                        Toast.makeText(
-                            baseContext, "But how it fits you?",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        return
-                    }
-                    if (getCurrentFittingID() in submittedFID) {
-                        resetFittingSession()
-                    } else {
-                        submittedFID.add(getCurrentFittingID())
-                    }
-                    binding.progressBar.visibility = View.VISIBLE
-                    api.tryWithSize(
-                        getCurrentFittingID(),
-                        getSavedBrandValue()!!,
-                        getSavedSizeValue()!!,
-                        getSavedStandardValue()!!,
-                        fitValue
-                    ) {
-                        Toast.makeText(
-                            baseContext, "Your results saved",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        binding.progressBar.visibility = View.INVISIBLE
-                        fitValue = -1
-                    }
+                    gotItRun()
                 }
                 R.id.button_add_photo -> {
                     addPhoto()
@@ -314,41 +342,12 @@ class CustomBrandActivity() : SettingsProvidingActivity(),
             }
         }
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        println("$resultCode ; $requestCode ; $data ; $imageToUploadUri")
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {// && data != null) {
-
-            val file = File(mCurrentPhotoPath)
-
-            //val uri = FileProvider.getUriForFile(this, this.applicationContext.packageName + ".provider", file)
-
-            val photoLocalID = Random.nextInt(
-                10.toDouble().pow(6).toInt(),
-                10.toDouble().pow(8).toInt()
-            ).toString()
-
-            getCurrentFittingID().let {
-                api.uploadPhoto(
-                    it,
-                    photoLocalID,
-                    file
-                ) {
-                    Toast.makeText(
-                        baseContext, "Image uploaded",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
-    }
 }
 
 
 object CustomFittingSessionHolder {
     init {
-        println("Singleton class invoked.")
+        println("CustomFittingSessionHolder added")
     }
     var fittingID: String? = null
     var myBrandValue: String? = null
